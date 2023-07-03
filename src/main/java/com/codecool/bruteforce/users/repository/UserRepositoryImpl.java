@@ -3,10 +3,7 @@ package com.codecool.bruteforce.users.repository;
 import com.codecool.bruteforce.logger.Logger;
 import com.codecool.bruteforce.users.model.User;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -56,11 +53,10 @@ public class UserRepositoryImpl implements UserRepository {
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // set the corresponding param
             pstmt.setString(1, userName);
             pstmt.setString(2, password);
             pstmt.setInt(3, id);
-            // update
+
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -94,6 +90,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public User get(int id) {
+        String sql = "SELECT * FROM users where id = ?";
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int userId = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String password = rs.getString("password");
+
+                return new User(userId, userName, password);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 

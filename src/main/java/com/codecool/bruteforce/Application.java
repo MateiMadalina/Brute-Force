@@ -9,6 +9,7 @@ import com.codecool.bruteforce.passwords.generator.PasswordGeneratorImpl;
 import com.codecool.bruteforce.passwords.model.AsciiTableRange;
 import com.codecool.bruteforce.users.generator.UserGenerator;
 import com.codecool.bruteforce.users.generator.UserGeneratorImpl;
+import com.codecool.bruteforce.users.model.User;
 import com.codecool.bruteforce.users.repository.UserRepository;
 import com.codecool.bruteforce.users.repository.UserRepositoryImpl;
 
@@ -30,6 +31,8 @@ public class Application {
         //userRepository.deleteAll();
         //userRepository.add("Madalina","4444");
         //userRepository.update(1,"Mada","1234");
+        User user1 = userRepository.get(1);
+        System.out.println(user1);
 
 
 //        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
