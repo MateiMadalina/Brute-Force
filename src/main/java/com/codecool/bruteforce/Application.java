@@ -31,8 +31,9 @@ public class Application {
         //userRepository.deleteAll();
         //userRepository.add("Madalina","4444");
         //userRepository.update(1,"Mada","1234");
-        User user1 = userRepository.get(1);
-        System.out.println(user1);
+        List<User> userList = userRepository.getAll();
+        System.out.println(userList);
+
 
 
 //        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();

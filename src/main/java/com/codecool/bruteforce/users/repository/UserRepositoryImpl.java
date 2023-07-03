@@ -4,6 +4,7 @@ import com.codecool.bruteforce.logger.Logger;
 import com.codecool.bruteforce.users.model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -109,6 +110,24 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public List<User> getAll() {
-        return null;
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String userName = rs.getString("user_name");
+                String password = rs.getString("password");
+
+                User user = new User(id, userName, password);
+                userList.add(user);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return userList;
     }
 }
