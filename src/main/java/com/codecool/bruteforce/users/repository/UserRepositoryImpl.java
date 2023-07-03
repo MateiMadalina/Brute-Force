@@ -49,6 +49,22 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public void update(int id, String userName, String password) {
+        String sql = "UPDATE users SET user_name = ? , "
+                + "password = ? "
+                + "WHERE id = ?";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            // set the corresponding param
+            pstmt.setString(1, userName);
+            pstmt.setString(2, password);
+            pstmt.setInt(3, id);
+            // update
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void delete(int id) {

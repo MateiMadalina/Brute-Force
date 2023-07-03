@@ -27,8 +27,9 @@ public class Application {
         String dbFile = "src/main/resources/Users.db";
 
         UserRepository userRepository = new UserRepositoryImpl(dbFile, logger);
-        userRepository.deleteAll();
+        //userRepository.deleteAll();
         //userRepository.add("Madalina","4444");
+        //userRepository.update(1,"Mada","1234");
 
 
 //        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
