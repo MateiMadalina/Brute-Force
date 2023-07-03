@@ -1,6 +1,7 @@
 package com.codecool.bruteforce;
 
 import com.codecool.bruteforce.authentication.AuthenticationService;
+import com.codecool.bruteforce.logger.ConsoleLogger;
 import com.codecool.bruteforce.logger.Logger;
 import com.codecool.bruteforce.passwords.breaker.PasswordBreakerImpl;
 import com.codecool.bruteforce.passwords.generator.PasswordGenerator;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class Application {
 
-    private static Logger logger = null;
+    private static Logger logger = new ConsoleLogger();
 
     private static final AsciiTableRange lowercaseChars = new AsciiTableRange(97, 122);
     private static final AsciiTableRange uppercaseChars = new AsciiTableRange(65, 90);
@@ -23,22 +24,24 @@ public class Application {
 
     public static void main(String[] args) {
 
-        String dbFile = "src/resources/Users.db";
+        String dbFile = "src/main/resources/Users.db";
 
         UserRepository userRepository = new UserRepositoryImpl(dbFile, logger);
         userRepository.deleteAll();
+        //userRepository.add("Madalina","4444");
 
-        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
-        UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
-        int userCount = 10;
-        int maxPwLength = 4;
 
-        addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
-
-        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
-
-        AuthenticationService authenticationService = null;
-        //breakUsers(userCount, maxPwLength, authenticationService);
+//        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
+//        UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
+//        int userCount = 10;
+//        int maxPwLength = 4;
+//
+//        addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
+//
+//        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
+//
+//        AuthenticationService authenticationService = null;
+//        //breakUsers(userCount, maxPwLength, authenticationService);
 
     }
 
