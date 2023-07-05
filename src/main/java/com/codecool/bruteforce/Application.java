@@ -1,6 +1,7 @@
 package com.codecool.bruteforce;
 
 import com.codecool.bruteforce.authentication.AuthenticationService;
+import com.codecool.bruteforce.authentication.AuthenticationServiceImpl;
 import com.codecool.bruteforce.logger.ConsoleLogger;
 import com.codecool.bruteforce.logger.Logger;
 import com.codecool.bruteforce.passwords.breaker.PasswordBreakerImpl;
@@ -39,11 +40,11 @@ public class Application {
 
 
        addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
-//
-//        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
-//
-//        AuthenticationService authenticationService = null;
-//        //breakUsers(userCount, maxPwLength, authenticationService);
+
+       logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
+
+        AuthenticationService authenticationService = new AuthenticationServiceImpl(userRepository);
+//        breakUsers(userCount, maxPwLength, authenticationService);
 
     }
 
