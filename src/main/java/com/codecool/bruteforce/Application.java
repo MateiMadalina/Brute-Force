@@ -44,7 +44,7 @@ public class Application {
        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
 
         AuthenticationService authenticationService = new AuthenticationServiceImpl(userRepository);
-//        breakUsers(userCount, maxPwLength, authenticationService);
+        breakUsers(userCount, maxPwLength, authenticationService);
 
     }
 
