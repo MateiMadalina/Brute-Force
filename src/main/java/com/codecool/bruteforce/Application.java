@@ -32,11 +32,13 @@ public class Application {
 
        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
 
-       //UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
-//        int userCount = 10;
-//        int maxPwLength = 4;
-//
-//        addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
+       UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
+       int userCount = 10;
+       int maxPwLength = 4;
+
+
+
+      // addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
 //
 //        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
 //
@@ -54,8 +56,6 @@ public class Application {
         var lowercasePwGen = new PasswordGeneratorImpl(lowercaseChars);
         var uppercasePwGen = new PasswordGeneratorImpl(lowercaseChars, uppercaseChars);
         PasswordGenerator numbersPwGen = new PasswordGeneratorImpl(numbers,lowercaseChars, uppercaseChars);
-        System.out.println(numbersPwGen.generate(4));
-
         return List.of(lowercasePwGen, uppercasePwGen, numbersPwGen);
     }
 
