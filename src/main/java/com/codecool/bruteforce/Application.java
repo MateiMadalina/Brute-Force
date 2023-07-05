@@ -28,16 +28,11 @@ public class Application {
         String dbFile = "src/main/resources/Users.db";
 
         UserRepository userRepository = new UserRepositoryImpl(dbFile, logger);
-        //userRepository.deleteAll();
-        //userRepository.add("Madalina","4444");
-        //userRepository.update(1,"Mada","1234");
-        List<User> userList = userRepository.getAll();
-        System.out.println(userList);
+        userRepository.deleteAll();
 
+       List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
 
-
-//        List<PasswordGenerator> passwordGenerators = createPasswordGenerators();
-//        UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
+       //UserGenerator userGenerator = new UserGeneratorImpl(logger, passwordGenerators);
 //        int userCount = 10;
 //        int maxPwLength = 4;
 //
@@ -58,7 +53,8 @@ public class Application {
     private static List<PasswordGenerator> createPasswordGenerators() {
         var lowercasePwGen = new PasswordGeneratorImpl(lowercaseChars);
         var uppercasePwGen = new PasswordGeneratorImpl(lowercaseChars, uppercaseChars);
-        PasswordGenerator numbersPwGen = null; // lowercase + uppercase + numbers
+        PasswordGenerator numbersPwGen = new PasswordGeneratorImpl(numbers,lowercaseChars, uppercaseChars);
+        System.out.println(numbersPwGen.generate(4));
 
         return List.of(lowercasePwGen, uppercasePwGen, numbersPwGen);
     }

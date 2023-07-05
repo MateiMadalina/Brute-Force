@@ -15,14 +15,25 @@ public class PasswordGeneratorImpl implements PasswordGenerator {
 
     @Override
     public String generate(int length) {
-        return null;
+        StringBuilder password = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            AsciiTableRange randomCharacterSet = getRandomCharacterSet();
+            char randomCharacter = getRandomCharacter(randomCharacterSet);
+            password.append(randomCharacter);
+        }
+        return password.toString();
     }
+
 
     private AsciiTableRange getRandomCharacterSet() {
-        return null;
+        int randomIndex = random.nextInt(characterSets.length);
+        return characterSets[randomIndex];
     }
 
+
     private static char getRandomCharacter(AsciiTableRange characterSet) {
-        return (char) 1;
+        int randomAsciiValue = random.nextInt(characterSet.end() - characterSet.start() + 1) + characterSet.start();
+        return (char) randomAsciiValue;
     }
+
 }
