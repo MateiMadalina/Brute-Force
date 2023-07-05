@@ -38,13 +38,13 @@ public class UserGeneratorImpl implements UserGenerator {
         return users;
     }
 
-    private PasswordGenerator getRandomPasswordGenerator() {
+    public PasswordGenerator getRandomPasswordGenerator() {
         Random random = new Random();
         int randomIndex = random.nextInt(passwordGenerators.size());
         return passwordGenerators.get(randomIndex);
     }
 
-    private static int getRandomPasswordLength(int maxPasswordLength) {
+    public static int getRandomPasswordLength(int maxPasswordLength) {
         Random random = new Random();
         return random.nextInt(maxPasswordLength) + 1;
     }
