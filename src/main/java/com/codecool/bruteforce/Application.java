@@ -38,7 +38,7 @@ public class Application {
 
 
 
-      // addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
+       addUsersToDb(userCount, maxPwLength, userGenerator, userRepository);
 //
 //        logger.logInfo(String.format("Database initialized with %d users; maximum password length: %d%n", userCount, maxPwLength));
 //
@@ -50,6 +50,10 @@ public class Application {
     private static void addUsersToDb(int count, int maxPwLength, UserGenerator userGenerator,
                                      UserRepository userRepository)
     {
+        List<User> users = userGenerator.generate(count,maxPwLength);
+        for (User user: users) {
+            userRepository.add(user.userName(),user.password());
+        }
     }
 
     private static List<PasswordGenerator> createPasswordGenerators() {
