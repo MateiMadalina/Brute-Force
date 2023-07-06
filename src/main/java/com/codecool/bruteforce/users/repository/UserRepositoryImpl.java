@@ -10,10 +10,12 @@ import java.util.List;
 public class UserRepositoryImpl implements UserRepository {
     private final String dbFile;
     private final Logger logger;
+    private final Connection connection;
 
     public UserRepositoryImpl(String dbFile, Logger logger) {
         this.dbFile = dbFile;
         this.logger = logger;
+        this.connection = getConnection();
     }
 
     private Connection getConnection() {
@@ -113,9 +115,9 @@ public class UserRepositoryImpl implements UserRepository {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM users";
 
-        try (Connection conn = this.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
+        try (
+                Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
 
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -123,11 +125,13 @@ public class UserRepositoryImpl implements UserRepository {
                 String password = rs.getString("password");
 
                 User user = new User(id, userName, password);
-                userList.add(user);
+                userList.add(new User(id, userName, password));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return userList;
     }
+
+
 }
